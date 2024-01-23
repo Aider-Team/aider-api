@@ -7,9 +7,8 @@ on:
     branches: [ "master" ]
 
 permissions:
-  checks: write
-  pull-requests: write
-  
+  contents: read
+
 jobs:
   test:
     name: merge-test
@@ -21,21 +20,7 @@ jobs:
         with:
           java-version: '11'
           distribution: 'temurin'
-      # Gradle Wrapper 권한 부여
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
-      # Gradle Test 실행
       - name: Test with Gradle
-        run: ./gradlew --info test
-      # Test 후 Report 생성
-      - name: Publish Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v2
-        if: always()
-        with:
-          junit_files: '**/build/test-results/test/TEST-*.xml'
-      # 오류가 나는 부분에 코멘트를 달아줌
-      - name: add comments to a pull request
-        uses: mikepenz/action-junit-report@v3
-        if: always()
-        with:
-          report_paths: '**/build/test-results/test/TEST-*.xml'
+        run: ./gradlew test
