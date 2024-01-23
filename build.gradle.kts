@@ -1,7 +1,7 @@
 plugins {
-	java
-	id("org.springframework.boot") version "2.7.16"
-	id("io.spring.dependency-management") version "1.1.4"
+    java
+    id("org.springframework.boot") version "2.7.16"
+    id("io.spring.dependency-management") version "1.1.4"
 }
 
 group = "com.aider"
@@ -10,12 +10,12 @@ version = "0.0.1-SNAPSHOT"
 val queryDslVersion by extra("5.0.0")
 
 java {
-	sourceCompatibility = JavaVersion.VERSION_11
-	targetCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
 }
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
@@ -36,27 +36,27 @@ dependencies {
 }
 
 tasks.withType<Test> {
-	useJUnitPlatform()
+    useJUnitPlatform()
 }
 
 val querydslDir = layout.buildDirectory.dir("generated/querydsl") // gradlew 최신
 
 sourceSets {
-	getByName("main").java.srcDir(querydslDir)
+    getByName("main").java.srcDir(querydslDir)
 }
 
 configurations {
-	create("querydsl") {
-		extendsFrom(configurations.compileClasspath.get())
-	}
+    create("querydsl") {
+        extendsFrom(configurations.compileClasspath.get())
+    }
 }
 
 tasks.register("compileQuerydsl", JavaCompile::class) {
-	options.annotationProcessorPath = configurations["querydsl"]
-	source(querydslDir)
+    options.annotationProcessorPath = configurations["querydsl"]
+    source(querydslDir)
 }
 
 // 컴파일 후 QueryDSL 코드 삭제
 tasks.clean {
-	delete(querydslDir)
+    delete(querydslDir)
 }
