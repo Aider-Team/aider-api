@@ -26,7 +26,7 @@ dependencies {
 	annotationProcessor("jakarta.persistence:jakarta.persistence-api")
 	annotationProcessor("jakarta.annotation:jakarta.annotation-api")
 	implementation("com.fasterxml.jackson.core:jackson-databind")
-	implementation("io.springfox:springfox-boot-starter:3.0.0")
+//	implementation("io.springfox:springfox-boot-starter:3.0.0")
 	implementation("com.querydsl:querydsl-jpa:$queryDslVersion")
 	annotationProcessor("com.querydsl:querydsl-apt:$queryDslVersion:jpa")
 	runtimeOnly("com.h2database:h2")
