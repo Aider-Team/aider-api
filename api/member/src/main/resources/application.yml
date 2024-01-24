@@ -1,0 +1,21 @@
+spring:
+  profiles:
+    include: infra, security
+    active: dev
+
+  jpa:
+    open-in-view: false # view, Controller 단에서 Lazy를 사용하지 않음
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+
+logging:
+  level:
+    org:
+      hibernate:
+        sql: debug
+        type: trace
+
+server:
+  port: 8080
