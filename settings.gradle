@@ -1,0 +1,17 @@
+pluginManagement {
+    resolutionStrategy.eachPlugin {
+        if (requested.id.id == "org.springframework.boot") {
+            useVersion "2.7.16"
+        }
+        if (requested.id.id == "io.spring.dependency-management") {
+            useVersion "1.1.4"
+        }
+    }
+}
+
+rootProject.name = "aider"
+
+include 'api:member'
+include 'core:infra'
+include "core:security"
+
