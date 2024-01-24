@@ -11,7 +11,7 @@ pluginManagement {
 
 rootProject.name = "aider"
 
-include 'api:member'
-include 'core:infra'
+include "api:member"
+include "core:infra"
 include "core:security"
 
