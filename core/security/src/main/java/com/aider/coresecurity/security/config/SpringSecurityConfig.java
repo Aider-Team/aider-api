@@ -1,6 +1,7 @@
 package com.aider.coresecurity.security.config;
 
 import com.aider.coresecurity.security.jwt.JwtFilter;
+import com.aider.coresecurity.security.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,7 +24,7 @@ import java.util.Arrays;
 @EnableMethodSecurity
 @RequiredArgsConstructor
 public class SpringSecurityConfig {
-    private final JwtFilter jwtFilter;
+    private final JwtProvider jwtProvider;
 
     /**
      * 패스워드 인코더
@@ -40,8 +41,9 @@ public class SpringSecurityConfig {
         http
             .authorizeRequests()
                 .anyRequest().permitAll();
+        // 임시 토큰 비활성화
 //            .and()
-//                .addFilterBefore(jwtFilter, ExceptionTranslationFilter.class);
+//                .addFilterBefore(new JwtFilter(jwtProvider), ExceptionTranslationFilter.class);
         return http.build();
     }
 
@@ -102,5 +104,4 @@ public class SpringSecurityConfig {
             .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS); // 세션 생성을 하지 않음
     }
-
 }
