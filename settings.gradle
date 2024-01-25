@@ -14,4 +14,5 @@ rootProject.name = "aider"
 include "api:member"
 include "core:infra"
 include "core:security"
+include "core:domain"
 
