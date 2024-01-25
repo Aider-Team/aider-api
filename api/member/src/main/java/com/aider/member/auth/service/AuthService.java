@@ -1,6 +1,7 @@
 package com.aider.member.auth.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -45,7 +46,7 @@ public class AuthService {
 			.getGroupRoles()
 			.stream()
 			.map(groupPermission -> new SimpleGrantedAuthority(groupPermission.getRole().getName()))
-			.toList();
+			.collect(Collectors.toList());
 
 		return UserDetailsImpl.builder()
 			.id(member.getId())
