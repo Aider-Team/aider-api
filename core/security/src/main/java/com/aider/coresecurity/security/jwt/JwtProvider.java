@@ -1,10 +1,7 @@
 package com.aider.coresecurity.security.jwt;
 
 import com.aider.coresecurity.security.service.UserDetailsImpl;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtParser;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
@@ -94,11 +91,17 @@ public class JwtProvider {
     /**
      * 토큰 검증
      */
-    public void validate(String token) {
-        JwtParser jwtParser = Jwts.parserBuilder()
-                .setSigningKey(extractSecretKey())
-                .build();
-        jwtParser.parse(token);
+    public Boolean validate(String token) {
+        try{
+            JwtParser jwtParser = Jwts.parserBuilder()
+                    .setSigningKey(extractSecretKey())
+                    .build();
+            jwtParser.parse(token);
+
+            return true;
+        }catch (JwtException e) {
+            return false;
+        }
     }
 
     /**

@@ -39,10 +39,9 @@ public class SpringSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         httpSecuritySetting(http);
         http
-            .authorizeRequests()
+                .authorizeRequests()
                 .anyRequest().permitAll();
-        // 임시 토큰 비활성화
-//            .and()
+//                .and()
 //                .addFilterBefore(new JwtFilter(jwtProvider), ExceptionTranslationFilter.class);
         return http.build();
     }
@@ -94,7 +93,7 @@ public class SpringSecurityConfig {
             .csrf().disable() // jwt, OAuth 토큰을 사용 -> OAuth의 경우는 이슈가 발생할 수 있음 OAuth 구성할때 체크
             .cors().configurationSource(corsConfigurationSource()) // cors 정책
             .and()
-            .anonymous().disable() // 익명 사용자 접근 제한, 모든 요청이 인증 필요
+//            .anonymous().disable() // 익명 사용자 접근 제한, 모든 요청이 인증 필요
             .formLogin().disable() // form 기반 로그인을 사용하지 않음.
             .httpBasic().disable() // 기본으로 제공하는 http 사용하지 않음
             .rememberMe().disable() // 토큰 기반이므로 세션 기반의 인증 사용하지 않음

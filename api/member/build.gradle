@@ -3,6 +3,7 @@ bootJar { enabled = true }
 jar { enabled = false }
 
 dependencies {
+    implementation project(":core:domain")
     implementation project(":core:infra")
     implementation project(":core:security")
 

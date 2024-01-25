@@ -17,6 +17,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static org.springframework.util.StringUtils.*;
+import static org.springframework.util.StringUtils.hasText;
+
 
 @Slf4j
 @RequiredArgsConstructor
@@ -32,9 +35,11 @@ public class JwtFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         try{
             String accessToken = extractToken(request);
-            jwtProvider.validate(accessToken);
-            SecurityContextHolder.getContext()
-                    .setAuthentication(jwtProvider.toAuthentication(accessToken));
+            if(hasText(accessToken) && jwtProvider.validate(accessToken)) {
+                SecurityContextHolder.getContext()
+                        .setAuthentication(jwtProvider.toAuthentication(accessToken));
+            }
+            filterChain.doFilter(request, response);
         }catch(ExpiredJwtException e) {
             throw new CredentialsExpiredException("토큰의 유효기간이 만료되었습니다.", e);
         }catch(Exception e) {
@@ -48,7 +53,7 @@ public class JwtFilter extends OncePerRequestFilter {
     private String extractToken(HttpServletRequest request) {
         String bearerToken = request.getHeader(AUTHENTICATION_HEADER);
 
-        if(StringUtils.hasText(bearerToken) && bearerToken.startsWith(AUTHENTICATION_SCHEME + " ")){
+        if(hasText(bearerToken) && bearerToken.startsWith(AUTHENTICATION_SCHEME + " ")){
             return bearerToken.substring(AUTHENTICATION_SCHEME.length() + 1);
         }
 
