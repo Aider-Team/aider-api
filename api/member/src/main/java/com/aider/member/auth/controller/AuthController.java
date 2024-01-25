@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.aider.member.auth.dto.TokenResponseDto;
 import com.aider.member.auth.service.AuthService;
+import com.aider.response.AiderResponse;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,8 +20,8 @@ public class AuthController {
 	private final AuthService authService;
 
 	@PostMapping("/reissue-token")
-	public ResponseEntity<TokenResponseDto> refreshAccessToken(@CookieValue String refreshToken) {
+	public ResponseEntity<AiderResponse> refreshAccessToken(@CookieValue String refreshToken) {
 		TokenResponseDto tokenResponse = authService.refreshAccessToken(refreshToken);
-		return ResponseEntity.ok(tokenResponse);
+		return ResponseEntity.ok(new AiderResponse(tokenResponse));
 	}
 }
