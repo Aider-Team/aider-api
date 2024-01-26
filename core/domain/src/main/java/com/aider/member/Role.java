@@ -1,9 +1,6 @@
 package com.aider.member;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import lombok.Getter;
 
@@ -16,4 +13,8 @@ public class Role {
 	private Long id;
 
 	private String name;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "student_id")
+	private Student student;
 }
